@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -19,7 +18,7 @@
             font-family: 'Dancing Script', cursive;
         }
 
-        /* Animasi Hati Melayang di Latar Belakang */
+        /* Elemen Melayang di Latar Belakang */
         .floating-heart {
             position: fixed;
             color: #ff85a2;
@@ -30,132 +29,218 @@
         }
 
         @keyframes floatUp {
-            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            0% { transform: translateY(110vh) scale(0) rotate(0deg); opacity: 0; }
             20% { opacity: 0.6; }
-            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+            100% { transform: translateY(-10vh) scale(1.5) rotate(360deg); opacity: 0; }
         }
 
-        /* Glassmorphism */
+        /* Gaya Glassmorphism */
         .glass {
-            background: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.75);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 182, 193, 0.3);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 182, 193, 0.4);
             border-radius: 24px;
         }
 
+        .glass-dark {
+            background: rgba(255, 77, 109, 0.05);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 77, 109, 0.1);
+        }
+
         .gradient-pink {
-            background: linear-gradient(135deg, #ff85a2 0%, #ffc2d1 100%);
+            background: linear-gradient(135deg, #ff4d6d 0%, #ff85a2 100%);
         }
 
         .text-gradient {
-            background: linear-gradient(to right, #ff4d6d, #ff85a2);
+            background: linear-gradient(to right, #ff4d6d, #ff85a2, #ffb3c1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .education-dot {
-            width: 16px;
-            height: 16px;
+            width: 18px;
+            height: 18px;
             background: #ff4d6d;
             border-radius: 50%;
             position: absolute;
-            left: -8px;
+            left: -9px;
             top: 10px;
-            box-shadow: 0 0 10px rgba(255, 77, 109, 0.5);
+            box-shadow: 0 0 15px rgba(255, 77, 109, 0.6);
+            border: 3px solid white;
         }
 
-        .nav-link:hover {
-            color: #ff4d6d;
-            transform: translateY(-2px);
+        /* Efek Hover Navigasi */
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #ff4d6d;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
+        /* Scrollbar Kustom */
+        ::-webkit-scrollbar { width: 10px; }
         ::-webkit-scrollbar-track { background: #fff0f3; }
-        ::-webkit-scrollbar-thumb { background: #ff85a2; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { 
+            background: linear-gradient(#ff85a2, #ff4d6d); 
+            border-radius: 10px;
+            border: 2px solid #fff0f3;
+        }
+
+        /* Transisi Bagian */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+            animation: spin-slow 12s linear infinite;
+        }
     </style>
 </head>
-<body class="text-gray-800">
+<body class="text-gray-800 leading-relaxed">
 
-    <!-- Container untuk Animasi Hati -->
+    <!-- Kontainer Hati Melayang -->
     <div id="heart-box"></div>
 
     <!-- Navigasi -->
-    <nav class="fixed w-full z-50 px-6 py-4">
-        <div class="max-w-5xl mx-auto glass flex justify-between items-center px-8 py-3 shadow-lg">
-            <span class="text-2xl font-aesthetic font-bold text-pink-600">Fitri Fazzirah</span>
-            <div class="hidden md:flex space-x-8 font-semibold text-sm">
-                <a href="#beranda" class="nav-link transition-all">Beranda</a>
-                <a href="#pendidikan" class="nav-link transition-all">Pendidikan</a>
-                <a href="#keahlian" class="nav-link transition-all">Keahlian</a>
-                <a href="https://instagram.com/ftrfzrr_" target="_blank" class="bg-pink-500 text-white px-4 py-1 rounded-full hover:bg-pink-600 transition-all shadow-md">@ftrfzrr_</a>
+    <nav class="fixed w-full z-50 px-4 md:px-6 py-4">
+        <div class="max-w-5xl mx-auto glass flex justify-between items-center px-6 md:px-10 py-3 shadow-xl">
+            <a href="#" class="text-2xl font-aesthetic font-bold text-pink-600 hover:scale-105 transition-transform">Fitri F.</a>
+            
+            <!-- Menu Desktop -->
+            <div class="hidden md:flex items-center space-x-8 font-semibold text-sm">
+                <a href="#beranda" class="nav-link">Beranda</a>
+                <a href="#pendidikan" class="nav-link">Pendidikan</a>
+                <a href="#keahlian" class="nav-link">Keahlian</a>
+                <a href="#kontak" class="nav-link">Kontak</a>
+                <a href="https://instagram.com/ftrfzrr_" target="_blank" class="gradient-pink text-white px-5 py-2 rounded-full hover:shadow-lg transition-all active:scale-95">
+                    @ftrfzrr_
+                </a>
             </div>
+
+            <!-- Tombol Menu Mobile -->
+            <button class="md:hidden text-pink-600 focus:outline-none" onclick="toggleMobileMenu()">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+
+        <!-- Menu Mobile -->
+        <div id="mobile-menu" class="hidden md:hidden mt-2 glass mx-auto max-w-sm p-6 flex flex-col space-y-4 text-center font-bold shadow-2xl">
+            <a href="#beranda" onclick="toggleMobileMenu()">Beranda</a>
+            <a href="#pendidikan" onclick="toggleMobileMenu()">Pendidikan</a>
+            <a href="#keahlian" onclick="toggleMobileMenu()">Keahlian</a>
+            <a href="#kontak" onclick="toggleMobileMenu()">Kontak</a>
+            <a href="https://instagram.com/ftrfzrr_" target="_blank" class="text-pink-600">Instagram</a>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="beranda" class="min-h-screen flex flex-col justify-center items-center pt-20 px-6 text-center">
-        <div class="relative mb-8">
-            <div class="w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border-4 border-white shadow-2xl relative z-10">
-                <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&q=80&w=500" alt="Foto Profil Fitri Fazzirah" class="w-full h-full object-cover">
+    <section id="beranda" class="min-h-screen flex flex-col justify-center items-center pt-24 px-6 text-center">
+        <div class="relative mb-10 group">
+            <!-- Cincin Beranimasi -->
+            <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-pink-400 to-red-300 animate-spin-slow blur-md opacity-75 group-hover:opacity-100 transition-opacity"></div>
+            
+            <div class="w-56 h-56 md:w-72 md:h-72 rounded-full overflow-hidden border-4 border-white shadow-2xl relative z-10">
+                <!-- Foto Profil Diperbarui sesuai permintaan terbaru -->
+                <img src="https://simangu.smksalirsyad-hgl.sch.id/apimangu/uploads/siswa/232410014/1770623006_0216780f.jpeg" 
+                     alt="Foto Profil Fitri Fazzirah Terbaru" 
+                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                     onerror="this.src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=600'">
             </div>
-            <div class="absolute -bottom-2 -right-2 bg-white p-3 rounded-full shadow-lg z-20 animate-bounce">
-                <span class="text-2xl">👩‍💻</span>
+            
+            <div class="absolute -bottom-2 -right-2 bg-white p-4 rounded-full shadow-xl z-20 animate-bounce">
+                <span class="text-3xl">👩‍💻</span>
             </div>
-            <!-- Dekorasi Lingkaran Pink -->
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-pink-200 rounded-full blur-3xl opacity-50"></div>
         </div>
 
-        <h2 class="text-lg md:text-xl font-bold text-pink-500 uppercase tracking-widest mb-2">Halo, Selamat Datang!</h2>
-        <h1 class="text-5xl md:text-7xl font-aesthetic font-bold text-gradient mb-4">Fitri Fazzirah</h1>
-        <p class="max-w-xl text-gray-600 text-lg mb-8 leading-relaxed">
-            Siswi SMK yang bersemangat dengan keahlian di bidang akuntansi digital dan memiliki hobi memasak di waktu luang.
-        </p>
+        <div class="reveal">
+            <h2 class="text-sm md:text-base font-bold text-pink-500 uppercase tracking-[0.3em] mb-3">Portofolio Digital</h2>
+            <h1 class="text-5xl md:text-8xl font-aesthetic font-bold text-gradient mb-6 py-2">Fitri Fazzirah</h1>
+            <p class="max-w-2xl text-gray-600 text-lg md:text-xl mb-10 leading-relaxed mx-auto px-4">
+                Siswi <span class="text-pink-600 font-bold">SMK Al-Irsyad Haurgeulis</span> yang berdedikasi di bidang akuntansi. 
+                Menggabungkan ketelitian angka dengan kreativitas di dapur.
+            </p>
 
-        <div class="flex flex-wrap justify-center gap-4">
-            <a href="#pendidikan" class="gradient-pink text-white px-8 py-3 rounded-full font-bold shadow-lg hover:opacity-90 transition-all">Lihat Riwayat</a>
-            <button onclick="sparkleLove()" class="bg-white text-pink-500 border-2 border-pink-200 px-8 py-3 rounded-full font-bold hover:bg-pink-50 transition-all flex items-center gap-2">
-                Kirim Cinta ❤️
-            </button>
+            <div class="flex flex-col sm:flex-row justify-center gap-4 px-6">
+                <a href="#pendidikan" class="gradient-pink text-white px-10 py-4 rounded-full font-bold shadow-lg hover:shadow-pink-300/50 hover:-translate-y-1 transition-all">
+                    Jelajahi Profil
+                </a>
+                <button onclick="sparkleLove()" class="bg-white text-pink-500 border-2 border-pink-200 px-10 py-4 rounded-full font-bold hover:bg-pink-50 transition-all flex items-center justify-center gap-2">
+                    Kirim Dukungan ❤️
+                </button>
+            </div>
         </div>
     </section>
 
     <!-- Riwayat Pendidikan -->
-    <section id="pendidikan" class="py-24 px-6 relative z-10">
+    <section id="pendidikan" class="py-24 px-6 relative">
         <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-aesthetic font-bold text-pink-600 mb-2">Riwayat Pendidikan</h2>
-                <div class="h-1 w-20 bg-pink-400 mx-auto rounded-full"></div>
+            <div class="text-center mb-20 reveal">
+                <h2 class="text-4xl md:text-5xl font-aesthetic font-bold text-pink-600 mb-4">Langkah Pendidikan</h2>
+                <p class="text-gray-500 font-medium italic">Perjalanan dalam menuntut ilmu</p>
+                <div class="h-1.5 w-24 bg-gradient-to-r from-pink-400 to-pink-200 mx-auto mt-4 rounded-full"></div>
             </div>
 
-            <div class="space-y-12 border-l-2 border-pink-200 ml-4 md:ml-0 md:mx-auto relative">
+            <div class="space-y-12 border-l-4 border-pink-100 ml-4 md:ml-0 md:mx-auto relative">
                 <!-- SMK -->
-                <div class="relative pl-10 md:pl-12 education-card">
+                <div class="relative pl-10 md:pl-16 reveal">
                     <div class="education-dot"></div>
-                    <div class="glass p-6 shadow-md hover:shadow-xl transition-all">
-                        <span class="text-pink-500 font-bold text-sm">2023 — 2026</span>
-                        <h3 class="text-xl font-bold text-gray-800 mt-1">SMK Al-Irsyad Al-Islamiyyah Haurgeulis</h3>
-                        <p class="text-gray-500 mt-2">Menempuh pendidikan kejuruan dengan fokus pada kompetensi Akuntansi dan Keuangan Lembaga.</p>
+                    <div class="glass p-8 shadow-sm hover:shadow-2xl hover:bg-white transition-all group">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="bg-pink-100 text-pink-600 px-4 py-1 rounded-full font-bold text-xs uppercase tracking-wider">Sekarang</span>
+                            <span class="text-gray-400 font-bold text-sm">2023 — 2026</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 group-hover:text-pink-600 transition-colors">SMK Al-Irsyad Al-Islamiyyah Haurgeulis</h3>
+                        <p class="text-pink-500 font-semibold mb-3">Akuntansi dan Keuangan Lembaga</p>
+                        <p class="text-gray-600">Mengembangkan kompetensi profesional dalam pelaporan keuangan, audit dasar, dan penguasaan aplikasi akuntansi berbasis digital (MYOB).</p>
                     </div>
                 </div>
 
                 <!-- SMP -->
-                <div class="relative pl-10 md:pl-12 education-card">
+                <div class="relative pl-10 md:pl-16 reveal">
                     <div class="education-dot"></div>
-                    <div class="glass p-6 shadow-md hover:shadow-xl transition-all">
-                        <span class="text-pink-500 font-bold text-sm">2020 — 2023</span>
-                        <h3 class="text-xl font-bold text-gray-800 mt-1">SMPN 2 Anjatan</h3>
-                        <p class="text-gray-500 mt-2">Menyelesaikan pendidikan menengah pertama dengan aktif dalam kegiatan kesiswaan.</p>
+                    <div class="glass p-8 shadow-sm hover:shadow-2xl hover:bg-white transition-all group">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="bg-gray-100 text-gray-500 px-4 py-1 rounded-full font-bold text-xs uppercase tracking-wider">Alumni</span>
+                            <span class="text-gray-400 font-bold text-sm">2020 — 2023</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 group-hover:text-pink-600 transition-colors">SMPN 2 Anjatan</h3>
+                        <p class="text-gray-600">Masa eksplorasi bakat dan minat melalui berbagai organisasi sekolah dan kegiatan sosial.</p>
                     </div>
                 </div>
 
                 <!-- SD -->
-                <div class="relative pl-10 md:pl-12 education-card">
+                <div class="relative pl-10 md:pl-16 reveal">
                     <div class="education-dot"></div>
-                    <div class="glass p-6 shadow-md hover:shadow-xl transition-all">
-                        <span class="text-pink-500 font-bold text-sm">2014 — 2020</span>
-                        <h3 class="text-xl font-bold text-gray-800 mt-1">SDN 1 Wanguk</h3>
-                        <p class="text-gray-500 mt-2">Lulus pendidikan dasar dengan hasil yang memuaskan.</p>
+                    <div class="glass p-8 shadow-sm hover:shadow-2xl hover:bg-white transition-all group">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="bg-gray-100 text-gray-500 px-4 py-1 rounded-full font-bold text-xs uppercase tracking-wider">Alumni</span>
+                            <span class="text-gray-400 font-bold text-sm">2014 — 2020</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 group-hover:text-pink-600 transition-colors">SDN 1 Wanguk</h3>
+                        <p class="text-gray-600">Membangun fondasi akademik dan disiplin diri sejak dini.</p>
                     </div>
                 </div>
             </div>
@@ -163,123 +248,174 @@
     </section>
 
     <!-- Keahlian & Hobi -->
-    <section id="keahlian" class="py-24 px-6 bg-white/50">
-        <div class="max-w-5xl mx-auto">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <!-- Skill MYOB -->
-                <div class="glass p-10 border-r-8 border-pink-500">
-                    <h3 class="text-3xl font-aesthetic font-bold text-pink-600 mb-6">Keahlian Utama</h3>
-                    <div class="flex items-start gap-4 mb-6">
-                        <div class="p-4 bg-pink-100 rounded-2xl text-3xl">📊</div>
-                        <div>
-                            <h4 class="text-xl font-bold text-gray-800">Input Data Perusahaan di MYOB</h4>
-                            <p class="text-gray-600 mt-2 italic">Accounting Information System Expert</p>
+    <section id="keahlian" class="py-24 px-6 bg-pink-50/30">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-16">
+                <!-- Keahlian Akuntansi Digital -->
+                <div class="reveal">
+                    <h3 class="text-4xl font-aesthetic font-bold text-pink-600 mb-8">Keahlian Digital</h3>
+                    <div class="glass-dark p-10 rounded-[40px] border-l-8 border-pink-500 relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
+                            <svg class="w-32 h-32" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"/></svg>
+                        </div>
+                        
+                        <div class="flex items-center gap-5 mb-8">
+                            <div class="w-16 h-16 bg-white rounded-2xl shadow-inner flex items-center justify-center text-3xl">📊</div>
+                            <div>
+                                <h4 class="text-2xl font-bold text-gray-800">Spesialis MYOB</h4>
+                                <p class="text-pink-500 font-medium">Sistem Informasi Akuntansi</p>
+                            </div>
+                        </div>
+
+                        <ul class="space-y-4 mb-10">
+                            <li class="flex items-center gap-3 text-gray-700">
+                                <span class="text-pink-500 font-bold">✔</span> Pengaturan Data Perusahaan Awal
+                            </li>
+                            <li class="flex items-center gap-3 text-gray-700">
+                                <span class="text-pink-500 font-bold">✔</span> Manajemen Persediaan & Kartu Stok
+                            </li>
+                            <li class="flex items-center gap-3 text-gray-700">
+                                <span class="text-pink-500 font-bold">✔</span> Rekonsiliasi Bank & Laporan Keuangan
+                            </li>
+                        </ul>
+
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-sm font-bold text-gray-600">
+                                <span>Tingkat Kemahiran</span>
+                                <span>92%</span>
+                            </div>
+                            <div class="w-full bg-pink-100 rounded-full h-4 overflow-hidden">
+                                <div class="bg-gradient-to-r from-pink-500 to-red-400 h-full rounded-full w-[92%]"></div>
+                            </div>
                         </div>
                     </div>
-                    <p class="text-gray-600 leading-relaxed mb-6">
-                        Memiliki kompetensi dalam mengelola siklus akuntansi digital, mulai dari setup data awal hingga menghasilkan laporan keuangan yang akurat menggunakan software MYOB.
-                    </p>
-                    <div class="w-full bg-pink-100 rounded-full h-3">
-                        <div class="bg-pink-500 h-3 rounded-full" style="width: 90%"></div>
-                    </div>
-                    <p class="text-right text-xs font-bold text-pink-500 mt-1 uppercase tracking-tighter">Kemahiran 90%</p>
                 </div>
 
                 <!-- Hobi Memasak -->
-                <div class="relative">
-                    <div class="glass p-10">
-                        <h3 class="text-3xl font-aesthetic font-bold text-pink-600 mb-6">Hobi & Minat</h3>
-                        <div class="flex items-center gap-4 mb-4">
-                            <span class="text-4xl">🍳</span>
-                            <h4 class="text-xl font-bold text-gray-800">Seni Memasak</h4>
+                <div class="reveal" style="transition-delay: 0.2s;">
+                    <h3 class="text-4xl font-aesthetic font-bold text-pink-600 mb-8">Hobi & Kreativitas</h3>
+                    <div class="glass p-10 rounded-[40px] shadow-xl hover:shadow-2xl transition-all h-full flex flex-col justify-center">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="w-24 h-24 bg-orange-100 rounded-full flex items-center justify-center text-5xl mb-6 animate-bounce">🍳</div>
+                            <h4 class="text-2xl font-bold text-gray-800 mb-4">Seni Memasak</h4>
+                            <p class="text-gray-600 text-lg italic leading-relaxed mb-8 px-4">
+                                "Memasak adalah terapi kreatif saya. Menemukan harmoni dalam rasa sama pentingnya dengan menyeimbangkan buku besar."
+                            </p>
+                            
+                            <div class="grid grid-cols-2 gap-4 w-full">
+                                <div class="p-4 bg-pink-50 rounded-2xl border border-pink-100">
+                                    <span class="block text-2xl mb-1">🍰</span>
+                                    <span class="text-xs font-bold text-pink-600 uppercase tracking-tighter">Baking</span>
+                                </div>
+                                <div class="p-4 bg-pink-50 rounded-2xl border border-pink-100">
+                                    <span class="block text-2xl mb-1">🍱</span>
+                                    <span class="text-xs font-bold text-pink-600 uppercase tracking-tighter">Masakan Utama</span>
+                                </div>
+                            </div>
                         </div>
-                        <p class="text-gray-600 leading-relaxed">
-                            Bagi saya, memasak adalah terapi kreatif. Saya sangat suka mengeksplorasi resep baru dan menciptakan hidangan lezat untuk keluarga dan teman-teman.
-                        </p>
                     </div>
-                    <!-- Gambar Hiasan Hobi -->
-                    <div class="absolute -top-10 -right-4 w-24 h-24 bg-pink-300 rounded-full blur-2xl opacity-40"></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer / Kontak -->
-    <footer class="py-16 px-6 text-center bg-white border-t border-pink-100">
-        <h2 class="text-3xl font-aesthetic font-bold text-pink-500 mb-4">Mari Berteman!</h2>
-        <p class="text-gray-500 mb-8">Kunjungi media sosial saya untuk melihat aktivitas sehari-hari.</p>
-        
-        <div class="flex justify-center gap-6">
-            <a href="https://instagram.com/ftrfzrr_" target="_blank" class="group flex flex-col items-center">
-                <div class="w-16 h-16 gradient-pink rounded-full flex items-center justify-center text-white text-2xl shadow-lg group-hover:scale-110 transition-all">
-                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                    </svg>
-                </div>
-                <span class="mt-2 text-pink-600 font-bold opacity-0 group-hover:opacity-100 transition-all">@ftrfzrr_</span>
-            </a>
-        </div>
+    <!-- Footer & Kontak -->
+    <footer id="kontak" class="pt-24 pb-12 px-6 bg-white border-t border-pink-100 relative z-10">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl md:text-5xl font-aesthetic font-bold text-pink-600 mb-6">Mari Berteman!</h2>
+            <p class="text-gray-500 text-lg mb-12 max-w-md mx-auto">Terbuka untuk diskusi mengenai akuntansi atau berbagi resep masakan favorit.</p>
+            
+            <!-- Kontainer Sosial -->
+            <div class="flex justify-center items-center gap-8 mb-16">
+                <a href="https://instagram.com/ftrfzrr_" target="_blank" class="group relative">
+                    <div class="absolute inset-0 bg-pink-400 blur-xl opacity-0 group-hover:opacity-40 transition-opacity rounded-full"></div>
+                    <div class="w-20 h-20 md:w-24 md:h-24 gradient-pink rounded-[30%] flex items-center justify-center text-white text-4xl shadow-2xl group-hover:scale-110 transition-all active:scale-95">
+                        <svg class="w-10 h-10 md:w-12 md:h-12" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </div>
+                </a>
+            </div>
 
-        <div class="mt-12 text-gray-400 text-xs tracking-widest uppercase">
-            &copy; 2026 Fitri Fazzirah • Dibuat dengan cinta & warna pink
+            <div class="mt-20 pt-10 border-t border-gray-100">
+                <p class="text-gray-400 text-sm font-medium tracking-widest uppercase">
+                    &copy; 2026 <span class="text-pink-400">Fitri Fazzirah</span> • Dibuat dengan 💖 & Semangat
+                </p>
+            </div>
         </div>
     </footer>
 
+    <!-- Skrip Animasi & Logika -->
     <script>
-        // Logika Animasi Hati Melayang
+        // Mesin Animasi Hati Melayang
         function createHeart() {
             const container = document.getElementById('heart-box');
+            if (!container) return;
+            
             const heart = document.createElement('div');
             heart.classList.add('floating-heart');
             
-            // Randomisasi ikon hati/bunga
-            const icons = ['❤️', '💖', '💗', '💓', '🌸', '✨'];
+            const icons = ['❤️', '💖', '💗', '💓', '🌸', '✨', '🤍'];
             heart.innerText = icons[Math.floor(Math.random() * icons.length)];
             
-            // Atur posisi dan ukuran acak
-            const size = Math.random() * 20 + 10;
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.fontSize = size + 'px';
+            const size = Math.random() * 25 + 10;
+            const left = Math.random() * 100;
+            const duration = Math.random() * 6 + 4;
+            const delay = Math.random() * 2;
             
-            // Atur durasi animasi acak
-            const duration = Math.random() * 5 + 3;
+            heart.style.left = left + 'vw';
+            heart.style.fontSize = size + 'px';
             heart.style.animationDuration = duration + 's';
+            heart.style.animationDelay = delay + 's';
             
             container.appendChild(heart);
 
-            // Hapus elemen setelah animasi selesai
             setTimeout(() => {
                 heart.remove();
-            }, duration * 1000);
+            }, (duration + delay) * 1000);
         }
 
-        // Jalankan animasi secara terus menerus
-        setInterval(createHeart, 500);
+        setInterval(createHeart, 600);
 
-        // Efek Ledakan Hati saat tombol diklik
         function sparkleLove() {
-            for (let i = 0; i < 15; i++) {
-                setTimeout(createHeart, i * 50);
+            for (let i = 0; i < 20; i++) {
+                setTimeout(createHeart, i * 100);
             }
         }
 
-        // Animasi saat scroll
-        const cards = document.querySelectorAll('.education-card');
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if(entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateX(0)';
-                }
-            });
-        }, { threshold: 0.1 });
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
 
-        cards.forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateX(-20px)';
-            card.style.transition = 'all 0.6s ease-out';
-            observer.observe(card);
+        // Implementasi Reveal on Scroll
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+
+        window.addEventListener("scroll", reveal);
+        window.onload = reveal;
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                document.querySelector(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
         });
     </script>
 </body>
 </html>
+
