@@ -1,81 +1,79 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fitri Fazzirah | Portofolio Digital</title>
+    <title>Fitri Fazzirah | Personal Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Playfair+Display:wght@700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --sky-blue: #a2d2ff;
+            --soft-pink: #ffafcc;
+            --cloud-white: #f8f9fa;
+        }
+
         body {
-            font-family: 'Quicksand', sans-serif;
-            background-color: #fff0f3;
-            overflow-x: hidden;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, var(--sky-blue), var(--soft-pink));
+            background-attachment: fixed;
+            color: #2d3436;
             scroll-behavior: smooth;
+            overflow-x: hidden;
         }
 
-        .font-aesthetic {
-            font-family: 'Dancing Script', cursive;
-        }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .font-accent { font-family: 'Dancing Script', cursive; }
 
-        /* Elemen Melayang di Latar Belakang */
-        .floating-heart {
-            position: fixed;
-            color: #ff85a2;
-            pointer-events: none;
+        /* Cloud Animation */
+        .cloud {
+            position: absolute;
+            background: white;
+            border-radius: 100px;
+            opacity: 0.3;
+            filter: blur(20px);
             z-index: 0;
-            animation: floatUp linear forwards;
-            opacity: 0.6;
+            animation: moveClouds linear infinite;
         }
 
-        @keyframes floatUp {
-            0% { transform: translateY(110vh) scale(0) rotate(0deg); opacity: 0; }
-            20% { opacity: 0.6; }
-            100% { transform: translateY(-10vh) scale(1.5) rotate(360deg); opacity: 0; }
+        @keyframes moveClouds {
+            from { transform: translateX(-200px); }
+            to { transform: translateX(110vw); }
         }
 
-        /* Gaya Glassmorphism */
         .glass {
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 182, 193, 0.4);
-            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 2rem;
         }
 
-        .glass-dark {
-            background: rgba(255, 77, 109, 0.05);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 77, 109, 0.1);
+        .profile-img-container {
+            position: relative;
+            transition: all 0.5s ease;
         }
 
-        .gradient-pink {
-            background: linear-gradient(135deg, #ff4d6d 0%, #ff85a2 100%);
+        .profile-img-container:hover {
+            transform: scale(1.05);
         }
 
-        .text-gradient {
-            background: linear-gradient(to right, #ff4d6d, #ff85a2, #ffb3c1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .education-dot {
-            width: 18px;
-            height: 18px;
+        .timeline-dot {
+            width: 15px;
+            height: 15px;
             background: #ff4d6d;
+            border: 3px solid white;
             border-radius: 50%;
             position: absolute;
-            left: -9px;
-            top: 10px;
-            box-shadow: 0 0 15px rgba(255, 77, 109, 0.6);
-            border: 3px solid white;
+            left: -8px;
+            top: 5px;
         }
 
-        /* Efek Hover Navigasi */
         .nav-link {
             position: relative;
-            transition: all 0.3s ease;
         }
+
         .nav-link::after {
             content: '';
             position: absolute;
@@ -83,339 +81,261 @@
             height: 2px;
             bottom: -4px;
             left: 0;
-            background-color: #ff4d6d;
-            transition: width 0.3s ease;
+            background-color: white;
+            transition: width 0.3s;
         }
+
         .nav-link:hover::after {
             width: 100%;
         }
-
-        /* Scrollbar Kustom */
-        ::-webkit-scrollbar { width: 10px; }
-        ::-webkit-scrollbar-track { background: #fff0f3; }
-        ::-webkit-scrollbar-thumb { 
-            background: linear-gradient(#ff85a2, #ff4d6d); 
-            border-radius: 10px;
-            border: 2px solid #fff0f3;
-        }
-
-        /* Transisi Bagian */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease-out;
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        @keyframes spin-slow {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        .animate-spin-slow {
-            animation: spin-slow 12s linear infinite;
+        
+        .skill-tag {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 99px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.4);
         }
     </style>
 </head>
-<body class="text-gray-800 leading-relaxed">
+<body>
 
-    <!-- Kontainer Hati Melayang -->
-    <div id="heart-box"></div>
+    <!-- Animated Clouds Background -->
+    <div class="cloud w-40 h-20 top-20" style="animation-duration: 25s;"></div>
+    <div class="cloud w-60 h-24 top-60 left-1/4" style="animation-duration: 35s;"></div>
+    <div class="cloud w-32 h-16 top-1/3 left-3/4" style="animation-duration: 20s;"></div>
+    <div class="cloud w-52 h-20 bottom-20 left-10" style="animation-duration: 30s;"></div>
 
-    <!-- Navigasi -->
-    <nav class="fixed w-full z-50 px-4 md:px-6 py-4">
-        <div class="max-w-5xl mx-auto glass flex justify-between items-center px-6 md:px-10 py-3 shadow-xl">
-            <a href="#" class="text-2xl font-aesthetic font-bold text-pink-600 hover:scale-105 transition-transform">Fitri F.</a>
-            
-            <!-- Menu Desktop -->
-            <div class="hidden md:flex items-center space-x-8 font-semibold text-sm">
-                <a href="#beranda" class="nav-link">Beranda</a>
-                <a href="#pendidikan" class="nav-link">Pendidikan</a>
-                <a href="#keahlian" class="nav-link">Keahlian</a>
-                <a href="#kontak" class="nav-link">Kontak</a>
-                <a href="https://instagram.com/ftrfzrr_" target="_blank" class="gradient-pink text-white px-5 py-2 rounded-full hover:shadow-lg transition-all active:scale-95">
-                    @ftrfzrr_
-                </a>
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 p-6">
+        <div class="max-w-6xl mx-auto flex justify-between items-center glass px-8 py-4 shadow-xl text-white">
+            <span class="text-2xl font-accent">Fitri F.</span>
+            <div class="hidden md:flex space-x-8 font-semibold">
+                <a href="#home" class="nav-link">Beranda</a>
+                <a href="#about" class="nav-link">Profil</a>
+                <a href="#education" class="nav-link">Pendidikan</a>
+                <a href="#experience" class="nav-link">Prestasi</a>
+                <a href="#testimonials" class="nav-link">Pesan</a>
             </div>
-
-            <!-- Tombol Menu Mobile -->
-            <button class="md:hidden text-pink-600 focus:outline-none" onclick="toggleMobileMenu()">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            </button>
-        </div>
-
-        <!-- Menu Mobile -->
-        <div id="mobile-menu" class="hidden md:hidden mt-2 glass mx-auto max-w-sm p-6 flex flex-col space-y-4 text-center font-bold shadow-2xl">
-            <a href="#beranda" onclick="toggleMobileMenu()">Beranda</a>
-            <a href="#pendidikan" onclick="toggleMobileMenu()">Pendidikan</a>
-            <a href="#keahlian" onclick="toggleMobileMenu()">Keahlian</a>
-            <a href="#kontak" onclick="toggleMobileMenu()">Kontak</a>
-            <a href="https://instagram.com/ftrfzrr_" target="_blank" class="text-pink-600">Instagram</a>
+            <a href="https://instagram.com/ftrfzrr_" target="_blank" class="bg-white/20 hover:bg-white/40 px-6 py-2 rounded-full transition-all border border-white/50">
+                @ftrfzrr_
+            </a>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="beranda" class="min-h-screen flex flex-col justify-center items-center pt-24 px-6 text-center">
-        <div class="relative mb-10 group">
-            <!-- Cincin Beranimasi -->
-            <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-pink-400 to-red-300 animate-spin-slow blur-md opacity-75 group-hover:opacity-100 transition-opacity"></div>
-            
-            <div class="w-56 h-56 md:w-72 md:h-72 rounded-full overflow-hidden border-4 border-white shadow-2xl relative z-10">
-                <!-- Foto Profil Diperbarui sesuai permintaan terbaru -->
-                <img src="https://simangu.smksalirsyad-hgl.sch.id/apimangu/uploads/siswa/232410014/1770623006_0216780f.jpeg" 
-                     alt="Foto Profil Fitri Fazzirah Terbaru" 
-                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                     onerror="this.src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=600'">
-            </div>
-            
-            <div class="absolute -bottom-2 -right-2 bg-white p-4 rounded-full shadow-xl z-20 animate-bounce">
-                <span class="text-3xl">👩‍💻</span>
-            </div>
-        </div>
-
-        <div class="reveal">
-            <h2 class="text-sm md:text-base font-bold text-pink-500 uppercase tracking-[0.3em] mb-3">Portofolio Digital</h2>
-            <h1 class="text-5xl md:text-8xl font-aesthetic font-bold text-gradient mb-6 py-2">Fitri Fazzirah</h1>
-            <p class="max-w-2xl text-gray-600 text-lg md:text-xl mb-10 leading-relaxed mx-auto px-4">
-                Siswi <span class="text-pink-600 font-bold">SMK Al-Irsyad Haurgeulis</span> yang berdedikasi di bidang akuntansi. 
-                Menggabungkan ketelitian angka dengan kreativitas di dapur.
-            </p>
-
-            <div class="flex flex-col sm:flex-row justify-center gap-4 px-6">
-                <a href="#pendidikan" class="gradient-pink text-white px-10 py-4 rounded-full font-bold shadow-lg hover:shadow-pink-300/50 hover:-translate-y-1 transition-all">
-                    Jelajahi Profil
-                </a>
-                <button onclick="sparkleLove()" class="bg-white text-pink-500 border-2 border-pink-200 px-10 py-4 rounded-full font-bold hover:bg-pink-50 transition-all flex items-center justify-center gap-2">
-                    Kirim Dukungan ❤️
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Riwayat Pendidikan -->
-    <section id="pendidikan" class="py-24 px-6 relative">
-        <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-20 reveal">
-                <h2 class="text-4xl md:text-5xl font-aesthetic font-bold text-pink-600 mb-4">Langkah Pendidikan</h2>
-                <p class="text-gray-500 font-medium italic">Perjalanan dalam menuntut ilmu</p>
-                <div class="h-1.5 w-24 bg-gradient-to-r from-pink-400 to-pink-200 mx-auto mt-4 rounded-full"></div>
-            </div>
-
-            <div class="space-y-12 border-l-4 border-pink-100 ml-4 md:ml-0 md:mx-auto relative">
-                <!-- SMK -->
-                <div class="relative pl-10 md:pl-16 reveal">
-                    <div class="education-dot"></div>
-                    <div class="glass p-8 shadow-sm hover:shadow-2xl hover:bg-white transition-all group">
-                        <div class="flex justify-between items-start mb-4">
-                            <span class="bg-pink-100 text-pink-600 px-4 py-1 rounded-full font-bold text-xs uppercase tracking-wider">Sekarang</span>
-                            <span class="text-gray-400 font-bold text-sm">2023 — 2026</span>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-800 group-hover:text-pink-600 transition-colors">SMK Al-Irsyad Al-Islamiyyah Haurgeulis</h3>
-                        <p class="text-pink-500 font-semibold mb-3">Akuntansi dan Keuangan Lembaga</p>
-                        <p class="text-gray-600">Mengembangkan kompetensi profesional dalam pelaporan keuangan, audit dasar, dan penguasaan aplikasi akuntansi berbasis digital (MYOB).</p>
-                    </div>
-                </div>
-
-                <!-- SMP -->
-                <div class="relative pl-10 md:pl-16 reveal">
-                    <div class="education-dot"></div>
-                    <div class="glass p-8 shadow-sm hover:shadow-2xl hover:bg-white transition-all group">
-                        <div class="flex justify-between items-start mb-4">
-                            <span class="bg-gray-100 text-gray-500 px-4 py-1 rounded-full font-bold text-xs uppercase tracking-wider">Alumni</span>
-                            <span class="text-gray-400 font-bold text-sm">2020 — 2023</span>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-800 group-hover:text-pink-600 transition-colors">SMPN 2 Anjatan</h3>
-                        <p class="text-gray-600">Masa eksplorasi bakat dan minat melalui berbagai organisasi sekolah dan kegiatan sosial.</p>
-                    </div>
-                </div>
-
-                <!-- SD -->
-                <div class="relative pl-10 md:pl-16 reveal">
-                    <div class="education-dot"></div>
-                    <div class="glass p-8 shadow-sm hover:shadow-2xl hover:bg-white transition-all group">
-                        <div class="flex justify-between items-start mb-4">
-                            <span class="bg-gray-100 text-gray-500 px-4 py-1 rounded-full font-bold text-xs uppercase tracking-wider">Alumni</span>
-                            <span class="text-gray-400 font-bold text-sm">2014 — 2020</span>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-800 group-hover:text-pink-600 transition-colors">SDN 1 Wanguk</h3>
-                        <p class="text-gray-600">Membangun fondasi akademik dan disiplin diri sejak dini.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Keahlian & Hobi -->
-    <section id="keahlian" class="py-24 px-6 bg-pink-50/30">
-        <div class="max-w-6xl mx-auto">
-            <div class="grid lg:grid-cols-2 gap-16">
-                <!-- Keahlian Akuntansi Digital -->
-                <div class="reveal">
-                    <h3 class="text-4xl font-aesthetic font-bold text-pink-600 mb-8">Keahlian Digital</h3>
-                    <div class="glass-dark p-10 rounded-[40px] border-l-8 border-pink-500 relative overflow-hidden group">
-                        <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
-                            <svg class="w-32 h-32" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"/></svg>
-                        </div>
-                        
-                        <div class="flex items-center gap-5 mb-8">
-                            <div class="w-16 h-16 bg-white rounded-2xl shadow-inner flex items-center justify-center text-3xl">📊</div>
-                            <div>
-                                <h4 class="text-2xl font-bold text-gray-800">Spesialis MYOB</h4>
-                                <p class="text-pink-500 font-medium">Sistem Informasi Akuntansi</p>
-                            </div>
-                        </div>
-
-                        <ul class="space-y-4 mb-10">
-                            <li class="flex items-center gap-3 text-gray-700">
-                                <span class="text-pink-500 font-bold">✔</span> Pengaturan Data Perusahaan Awal
-                            </li>
-                            <li class="flex items-center gap-3 text-gray-700">
-                                <span class="text-pink-500 font-bold">✔</span> Manajemen Persediaan & Kartu Stok
-                            </li>
-                            <li class="flex items-center gap-3 text-gray-700">
-                                <span class="text-pink-500 font-bold">✔</span> Rekonsiliasi Bank & Laporan Keuangan
-                            </li>
-                        </ul>
-
-                        <div class="space-y-2">
-                            <div class="flex justify-between text-sm font-bold text-gray-600">
-                                <span>Tingkat Kemahiran</span>
-                                <span>92%</span>
-                            </div>
-                            <div class="w-full bg-pink-100 rounded-full h-4 overflow-hidden">
-                                <div class="bg-gradient-to-r from-pink-500 to-red-400 h-full rounded-full w-[92%]"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Hobi Memasak -->
-                <div class="reveal" style="transition-delay: 0.2s;">
-                    <h3 class="text-4xl font-aesthetic font-bold text-pink-600 mb-8">Hobi & Kreativitas</h3>
-                    <div class="glass p-10 rounded-[40px] shadow-xl hover:shadow-2xl transition-all h-full flex flex-col justify-center">
-                        <div class="flex flex-col items-center text-center">
-                            <div class="w-24 h-24 bg-orange-100 rounded-full flex items-center justify-center text-5xl mb-6 animate-bounce">🍳</div>
-                            <h4 class="text-2xl font-bold text-gray-800 mb-4">Seni Memasak</h4>
-                            <p class="text-gray-600 text-lg italic leading-relaxed mb-8 px-4">
-                                "Memasak adalah terapi kreatif saya. Menemukan harmoni dalam rasa sama pentingnya dengan menyeimbangkan buku besar."
-                            </p>
-                            
-                            <div class="grid grid-cols-2 gap-4 w-full">
-                                <div class="p-4 bg-pink-50 rounded-2xl border border-pink-100">
-                                    <span class="block text-2xl mb-1">🍰</span>
-                                    <span class="text-xs font-bold text-pink-600 uppercase tracking-tighter">Baking</span>
-                                </div>
-                                <div class="p-4 bg-pink-50 rounded-2xl border border-pink-100">
-                                    <span class="block text-2xl mb-1">🍱</span>
-                                    <span class="text-xs font-bold text-pink-600 uppercase tracking-tighter">Masakan Utama</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer & Kontak -->
-    <footer id="kontak" class="pt-24 pb-12 px-6 bg-white border-t border-pink-100 relative z-10">
-        <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-4xl md:text-5xl font-aesthetic font-bold text-pink-600 mb-6">Mari Berteman!</h2>
-            <p class="text-gray-500 text-lg mb-12 max-w-md mx-auto">Terbuka untuk diskusi mengenai akuntansi atau berbagi resep masakan favorit.</p>
-            
-            <!-- Kontainer Sosial -->
-            <div class="flex justify-center items-center gap-8 mb-16">
-                <a href="https://instagram.com/ftrfzrr_" target="_blank" class="group relative">
-                    <div class="absolute inset-0 bg-pink-400 blur-xl opacity-0 group-hover:opacity-40 transition-opacity rounded-full"></div>
-                    <div class="w-20 h-20 md:w-24 md:h-24 gradient-pink rounded-[30%] flex items-center justify-center text-white text-4xl shadow-2xl group-hover:scale-110 transition-all active:scale-95">
-                        <svg class="w-10 h-10 md:w-12 md:h-12" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                        </svg>
-                    </div>
-                </a>
-            </div>
-
-            <div class="mt-20 pt-10 border-t border-gray-100">
-                <p class="text-gray-400 text-sm font-medium tracking-widest uppercase">
-                    &copy; 2026 <span class="text-pink-400">Fitri Fazzirah</span> • Dibuat dengan 💖 & Semangat
+    <section id="home" class="min-h-screen flex items-center justify-center pt-20 px-6 relative overflow-hidden">
+        <div class="max-w-6xl w-full grid md:grid-cols-2 gap-12 items-center relative z-10">
+            <div class="order-2 md:order-1 text-white">
+                <h2 class="text-2xl font-accent mb-2">Halo, saya</h2>
+                <h1 class="text-5xl md:text-7xl font-serif mb-6 leading-tight">Fitri Fazzirah</h1>
+                <p class="text-xl opacity-90 mb-8 leading-relaxed">
+                    Calon Akuntan Profesional yang mahir dalam <span class="font-bold underline">MYOB</span> dan <span class="font-bold underline">Penyusunan Laporan Keuangan</span>.
                 </p>
+                <div class="flex gap-4">
+                    <a href="#about" class="bg-white text-pink-500 px-8 py-4 rounded-full font-bold shadow-lg hover:bg-pink-50 transition-all">Pelajari Profil</a>
+                    <a href="#testimonials" class="bg-pink-600 text-white px-8 py-4 rounded-full font-bold shadow-lg hover:bg-pink-700 transition-all border border-pink-400">Kirim Pesan</a>
+                </div>
             </div>
+            <div class="order-1 md:order-2 flex justify-center">
+                <div class="profile-img-container">
+                    <div class="absolute -inset-4 bg-white/30 rounded-full blur-2xl animate-pulse"></div>
+                    <img src="https://simangu.smksalirsyad-hgl.sch.id/apimangu/uploads/siswa/232410014/1770623006_0216780f.jpeg" 
+                         alt="Fitri Fazzirah" 
+                         class="w-64 h-64 md:w-80 md:h-80 object-cover rounded-full border-8 border-white shadow-2xl relative z-10">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section & Skills -->
+    <section id="about" class="py-24 px-6">
+        <div class="max-w-4xl mx-auto glass p-10 md:p-16 text-center">
+            <h2 class="text-4xl font-serif mb-8 text-white text-shadow">Keahlian & Profil</h2>
+            <div class="grid md:grid-cols-2 gap-10 text-white text-left">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4 border-b border-white/30 pb-2">Informasi Dasar</h3>
+                    <ul class="space-y-3 opacity-90">
+                        <li><strong>Lahir:</strong> 2007</li>
+                        <li><strong>Jurusan:</strong> Akuntansi (Accounting)</li>
+                        <li><strong>Hobi:</strong> Memasak</li>
+                        <li><strong>Instansi:</strong> SMK Al-Irsyad Al-Islamiyyah</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold mb-4 border-b border-white/30 pb-2">Keahlian Akuntansi</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-tag">Software MYOB</span>
+                        <span class="skill-tag">Laporan Keuangan</span>
+                        <span class="skill-tag">Siklus Akuntansi</span>
+                        <span class="skill-tag">Spreadsheet</span>
+                        <span class="skill-tag">Penyusunan Jurnal</span>
+                    </div>
+                    <p class="mt-4 text-sm opacity-80 leading-relaxed">
+                        Memiliki kompetensi dalam mengoperasikan software MYOB untuk otomatisasi akuntansi dan mampu mencatat laporan keuangan perusahaan secara akurat.
+                    </p>
+                </div>
+            </div>
+            <p class="mt-12 text-white text-lg opacity-90 italic">
+                "Keseimbangan dalam neraca adalah seni, dan ketelitian dalam mencatat adalah integritas saya."
+            </p>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="py-24 px-6 bg-white/30">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-serif text-center mb-16 text-white drop-shadow-md">Riwayat Pendidikan</h2>
+            <div class="space-y-12">
+                <!-- SMK -->
+                <div class="relative pl-8 border-l-2 border-white/50 pb-8">
+                    <div class="timeline-dot"></div>
+                    <div class="glass p-8 text-white">
+                        <span class="text-sm font-bold bg-pink-500/50 px-3 py-1 rounded-full mb-3 inline-block">2023 - 2026</span>
+                        <h3 class="text-2xl font-bold mb-2">SMK Al-Irsyad Al-Islamiyyah Haurgeulis</h3>
+                        <p class="opacity-80 italic">Fokus pada Kompetensi Keahlian Akuntansi & Keuangan Lembaga</p>
+                    </div>
+                </div>
+                <!-- SMP -->
+                <div class="relative pl-8 border-l-2 border-white/50 pb-8">
+                    <div class="timeline-dot"></div>
+                    <div class="glass p-8 text-white">
+                        <span class="text-sm font-bold bg-blue-500/50 px-3 py-1 rounded-full mb-3 inline-block">2020 - 2023</span>
+                        <h3 class="text-2xl font-bold mb-2">SMPN 2 Anjatan</h3>
+                        <p class="opacity-80">Menyelesaikan pendidikan tingkat menengah pertama.</p>
+                    </div>
+                </div>
+                <!-- SD -->
+                <div class="relative pl-8 border-l-2 border-white/50">
+                    <div class="timeline-dot"></div>
+                    <div class="glass p-8 text-white">
+                        <span class="text-sm font-bold bg-indigo-500/50 px-3 py-1 rounded-full mb-3 inline-block">2014 - 2020</span>
+                        <h3 class="text-2xl font-bold mb-2">SDN 1 Wanguk</h3>
+                        <p class="opacity-80">Masa awal menempuh pendidikan dasar.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievement Section -->
+    <section id="experience" class="py-24 px-6">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-4xl font-serif text-center mb-16 text-white drop-shadow-md">Pengalaman & Prestasi</h2>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="glass p-10 text-white">
+                    <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center text-4xl mb-6">🇮🇩</div>
+                    <h3 class="text-3xl font-bold mb-4">Pasukan Pengibar Bendera</h3>
+                    <p class="text-lg opacity-90 mb-6">
+                        Pada tahun 2024, saya mendapatkan kehormatan untuk menjadi bagian dari **Pasukan Pengibar Bendera (Paskibra)** pada upacara 17 Agustus tingkat Kecamatan Haurgeulis.
+                    </p>
+                    <div class="flex items-center gap-2 font-bold text-pink-100">
+                        <span class="p-2 bg-pink-500 rounded-full text-xs text-white">★</span>
+                        Pemegang Sertifikat Paskib Kecamatan Haurgeulis
+                    </div>
+                </div>
+                <div class="relative group">
+                    <div class="absolute -inset-2 bg-gradient-to-r from-pink-400 to-blue-400 rounded-3xl blur opacity-30 group-hover:opacity-60 transition duration-1000"></div>
+                    <div class="relative bg-white/40 p-4 rounded-3xl border border-white/50">
+                        <div class="h-80 w-full flex items-center justify-center rounded-2xl bg-white/20 text-white font-serif italic text-2xl text-center p-8">
+                            "Disiplin adalah kunci, kehormatan adalah jati diri."<br><br>
+                            <span class="text-lg font-accent font-normal text-white/80">- Paskibra 2024 -</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-24 px-6 bg-white/20">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-serif mb-4 text-white drop-shadow-sm">Beri Pesan</h2>
+                <p class="text-white opacity-80 uppercase tracking-widest text-sm font-bold">Tinggalkan testimoni atau kesan untuk saya</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-16" id="testimonial-container">
+                <!-- Mockup Testimonial -->
+                <div class="p-8 rounded-2xl glass text-white">
+                    <p class="italic mb-6">"Fitri adalah rekan kerja yang sangat teliti dalam urusan akuntansi dan pengoperasian MYOB-nya sangat rapi."</p>
+                    <div class="font-bold">— Teman Organisasi</div>
+                </div>
+                <div class="p-8 rounded-2xl glass text-white">
+                    <p class="italic mb-6">"Masakan Fitri tidak pernah mengecewakan, selalu ada bumbu cinta di setiap sajiannya."</p>
+                    <div class="font-bold">— Keluarga</div>
+                </div>
+            </div>
+
+            <!-- Form -->
+            <div class="glass p-10 max-w-2xl mx-auto">
+                <form id="comment-form" class="space-y-6">
+                    <div>
+                        <label class="block text-white text-sm font-bold mb-2 uppercase">Nama Anda</label>
+                        <input type="text" id="name" required class="w-full bg-white/20 border border-white/30 text-white px-5 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-white transition-all placeholder:text-white/50" placeholder="Siapa nama Anda?">
+                    </div>
+                    <div>
+                        <label class="block text-white text-sm font-bold mb-2 uppercase">Pesan / Testimoni</label>
+                        <textarea id="comment" required rows="4" class="w-full bg-white/20 border border-white/30 text-white px-5 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-white transition-all placeholder:text-white/50" placeholder="Tuliskan sesuatu untuk saya..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-white text-pink-500 font-bold py-4 rounded-xl hover:bg-pink-50 transition-all shadow-xl uppercase tracking-widest">Kirim Pesan</button>
+                </form>
+                <div id="success-msg" class="hidden mt-6 p-4 bg-green-400/50 text-white rounded-xl text-center font-bold">
+                    Pesan Anda telah terkirim! Terima kasih.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-16 text-center text-white relative z-10">
+        <div class="max-w-2xl mx-auto px-6">
+            <h2 class="text-3xl font-accent mb-6">Fitri Fazzirah</h2>
+            <div class="flex justify-center space-x-6 mb-8">
+                <a href="https://instagram.com/ftrfzrr_" target="_blank" class="hover:scale-110 transition-transform">Instagram</a>
+                <a href="#" class="hover:scale-110 transition-transform">Akuntansi</a>
+                <a href="#" class="hover:scale-110 transition-transform">Paskibra</a>
+            </div>
+            <p class="text-white/60 text-sm">
+                &copy; 2026 Portofolio Fitri Fazzirah. <br>
+                Jurusan Akuntansi - SMK Al-Irsyad Al-Islamiyyah Haurgeulis.
+            </p>
         </div>
     </footer>
 
-    <!-- Skrip Animasi & Logika -->
     <script>
-        // Mesin Animasi Hati Melayang
-        function createHeart() {
-            const container = document.getElementById('heart-box');
-            if (!container) return;
+        // Form interactivity
+        const form = document.getElementById('comment-form');
+        const container = document.getElementById('testimonial-container');
+        const successMsg = document.getElementById('success-msg');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
             
-            const heart = document.createElement('div');
-            heart.classList.add('floating-heart');
+            const name = document.getElementById('name').value;
+            const comment = document.getElementById('comment').value;
+
+            // Create new testimonial element
+            const newCard = document.createElement('div');
+            newCard.className = 'p-8 rounded-2xl glass text-white animate-bounce';
+            newCard.innerHTML = `
+                <p class="italic mb-6">"${comment}"</p>
+                <div class="font-bold">— ${name}</div>
+            `;
+
+            container.prepend(newCard);
+            form.reset();
+            successMsg.classList.remove('hidden');
             
-            const icons = ['❤️', '💖', '💗', '💓', '🌸', '✨', '🤍'];
-            heart.innerText = icons[Math.floor(Math.random() * icons.length)];
-            
-            const size = Math.random() * 25 + 10;
-            const left = Math.random() * 100;
-            const duration = Math.random() * 6 + 4;
-            const delay = Math.random() * 2;
-            
-            heart.style.left = left + 'vw';
-            heart.style.fontSize = size + 'px';
-            heart.style.animationDuration = duration + 's';
-            heart.style.animationDelay = delay + 's';
-            
-            container.appendChild(heart);
+            setTimeout(() => {
+                newCard.classList.remove('animate-bounce');
+            }, 1000);
 
             setTimeout(() => {
-                heart.remove();
-            }, (duration + delay) * 1000);
-        }
-
-        setInterval(createHeart, 600);
-
-        function sparkleLove() {
-            for (let i = 0; i < 20; i++) {
-                setTimeout(createHeart, i * 100);
-            }
-        }
-
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        }
-
-        // Implementasi Reveal on Scroll
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 100;
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("active");
-                }
-            }
-        }
-
-        window.addEventListener("scroll", reveal);
-        window.onload = reveal;
-
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                document.querySelector(targetId).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
+                successMsg.classList.add('hidden');
+            }, 5000);
         });
     </script>
 </body>
 </html>
-
